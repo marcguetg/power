@@ -1,0 +1,17 @@
+table {
+	border-collapse:collapse;
+}
+
+th {
+	border-bottom: solid 2px black;
+}
+
+th.border, td.border {
+	margin: 1 em;
+	border-right: solid 1px black;
+	padding-right: 2em;
+}
+
+tr.tab:nth-of-type(odd) {
+	background-color: #ccc;
+}
