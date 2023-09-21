@@ -24,3 +24,7 @@ input {
 .uplot {
 	touch-action: none;
 }
+
+div {
+	margin-left: 20px;
+}

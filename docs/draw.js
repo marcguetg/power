@@ -1,7 +1,7 @@
 'use strict';
 
 
-const width = Math.min(window.innerWidth - 10, 400);
+const width = Math.min(window.innerWidth - 40, 400);
 const PLOT_OPT = {
 	id: "chart1",
 	class: "my-chart",
