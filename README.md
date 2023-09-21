@@ -9,7 +9,7 @@ This module is utelized to monitor the power consumption and production. Specifi
 The former three are measured by a Growatt PV inverter which communicats by RS-485 via a no-brand RS-485 board. The latter two are read by a light sensitive resister from a smart power meter.
 
 # Data streams
-Base64 encoding shifted by ' '
+Base64 encoding shifted by ' '. Each data entry starts with a minor letter (a-z), were letters starting from x are reserved for testing purpuses.
 
 ## Solar stream (12 bytes long with header "a")
 | Name      | Bit | offset     | unit  | max       |
@@ -19,7 +19,7 @@ Base64 encoding shifted by ' '
 | Frequency | 11  | 4000       | 10mHz | 60 Hz     |
 | Voltage   | 12  | 1000       | 100mV | 500V      |
 
-## Diagnostic message (8 bytes long with header "b")
+## Diagnostic message (8 bytes long with header "c")
 | Name      | Bit | offset     | unit  | max       |
 | --------- | --- | ---------- | ----- | --------- |
 | Time      | 22  | 1690000000 | 64s   | 23.1.2032 |
@@ -31,11 +31,6 @@ Base64 encoding shifted by ' '
 | --------- | --- | ---------- | ----- | --------- |
 | Time      | 28  | 1690000000 | s     | 23.1.2032 |
 | Power     | 20  | 0          | 100mW | 104 kW    |
-
-
-
-
-
 
 
 # Wiring
@@ -51,7 +46,3 @@ Vcc       ┌───────────────────║A0 Vin 
 └─────R───┴────R──── GND
 ```
 
-
-# TODO:
-change date formater in plot
-add a test power

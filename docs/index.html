@@ -8,10 +8,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
 
 	<link rel="stylesheet" href="https://leeoniya.github.io/uPlot/dist/uPlot.min.css">
-	<script src="https://leeoniya.github.io/uPlot/dist/uPlot.iife.min.js"></script>
+	<script src="https://leeoniya.github.io/uPlot/dist/uPlot.iife.min.js" defer></script>
 
-	<script src="solar.js"></script>
-	<script src="index.js"></script>
+	<script src="parse.js" defer></script>
+	<script src="touchZoom.js" defer></script>
+	<script src="draw.js" defer></script>
+	<script src="index.js" defer></script>
 	<link rel="stylesheet" href="index.css">
 </head>
 
@@ -26,6 +28,7 @@
 		Month
 	</button>
 	<input type="number" ng-model="add_value" ng-keyup="$event.keyCode == 13 && days.load(add_value)" placeholder="#Days"/>
+	<br>
 	<input type="text" ng-model="url" ng-keyup="$event.keyCode == 13 && store_url(url)" placeholder="webhook url"/>
 	<button ng-click="download()">Download</button>
 
@@ -58,9 +61,9 @@
 		</tr>
 	</table>
 
-	<div id="power"></div>
-	<div id="voltage"></div>
-	<div id="frequency"></div>
-	<div id="buffer"></div>
-	<div id="uptime"></div>
+	<div id="Power" class="plot"></div>
+	<div id="Voltage" class="plot"></div>
+	<div id="Frequency" class="plot"></div>
+	<div id="Buffer" class="plot"></div>
+	<div id="Uptime" class="plot"></div>
 </body>

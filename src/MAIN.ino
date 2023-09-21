@@ -15,6 +15,10 @@ void setup() {
 	Solar::setup();
 
 	new Thread("solar", Solar::thread);
+	new Thread("power", Power::thread);
 	new Thread("publisher", Publisher::thread);
 	Particle.function("measure", Power::measure_timeseries);
+	Particle.function("wavelength", Power::set_wavelength);
+	Particle.variable("analog", Power::analog);
+	Particle.variable("ppower", Power::ppower);
 }

@@ -96,7 +96,7 @@ class DiagnosticData {
 
 			buffer += (raw.charCodeAt(i + 6) - SHIFT) << 3;
 			buffer += (raw.charCodeAt(i + 7) - SHIFT) << 9;
-			this.uptime.push(buffer * 600);
+			this.uptime.push(buffer / 6);
 
 			return [false, i + 8];
 		} else {
@@ -126,10 +126,10 @@ function parse(raw) {
 				resp = data.solar.parse(raw, i);
 				break;
 			case 'b':
-				resp = data.power_test.parse(raw, i);
-				break;
-			case 'z':
 				resp = data.diagnostic.parse(raw, i);
+				break;
+			case 'x':
+				resp = data.power_test.parse(raw, i);
 				break;
 			default:
 				resp = [true, strip_to_sep(raw, i + 1)];

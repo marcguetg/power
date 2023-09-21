@@ -4,38 +4,6 @@ if(typeof console === undefined) {
 }
 
 
-const PLOT_OPT = {
-	id: "chart1",
-	class: "my-chart",
-	width: 400,
-	height: 400,
-	series: [
-		{label: 'step'},
-		{stroke: "red"},
-	],
-	hooks: {
-		setScale: [
-		  (u, key) => {
-			if (key == 'x') {
-				let min = u.scales.x.min;
-				let max = u.scales.x.max;
-				draw_manger.set_xscale(min, max);
-			}
-		  }
-		]
-	  }
-};
-
-var app = angular.module('App', []);
-
-
-function date_formater(date) {
-	const month = (date.getMonth() + 1).toString().padStart(2, "0");
-	const day = (date.getDate()).toString().padStart(2, "0");
-	return `${date.getFullYear()}.${month}.${day}`;
-}
-
-
 class Day {
 	constructor(date, scope) {
 		this.name = date.toLocaleDateString(
@@ -82,43 +50,6 @@ class Day {
 }
 
 
-class DrawManager {
-	draw(data) {
-		if (this.power_plot === undefined) {
-			this.init_plots();
-		}
-
-		this.power_plot.setData([data.solar.date, data.solar.power]);
-		this.voltage_plot.setData([data.solar.date, data.solar.voltage]);
-		this.frequency_plot.setData([data.solar.date, data.solar.frequency]);
-		this.buffer_plot.setData([data.diagnostic.date, data.diagnostic.buffer]);
-		this.uptime_plot.setData([data.diagnostic.date, data.diagnostic.uptime]);
-	}
-
-	init_plots() {
-		let power_canvas = document.getElementById("power");
-		this.power_plot = new uPlot(PLOT_OPT, [], power_canvas);
-		let voltage_canvas = document.getElementById("voltage");
-		this.voltage_plot = new uPlot(PLOT_OPT, [], voltage_canvas);
-		let frequency_canvas = document.getElementById("frequency");
-		this.frequency_plot = new uPlot(PLOT_OPT, [], frequency_canvas);
-		let buffer_canvas = document.getElementById("buffer");
-		this.buffer_plot = new uPlot(PLOT_OPT, [], buffer_canvas);
-		let uptime_canvas = document.getElementById("uptime");
-		this.uptime_plot = new uPlot(PLOT_OPT, [], uptime_canvas);
-	}
-
-	set_xscale(min, max) {
-		this.power_plot.setScale('x', {min, max});
-		this.voltage_plot.setScale('x', {min, max});
-		this.frequency_plot.setScale('x', {min, max});
-		this.buffer_plot.setScale('x', {min, max});
-		this.uptime_plot.setScale('x', {min, max});
-	}
-}
-
-var draw_manger = new DrawManager();
-
 class DayManager {
 	constructor(scope) {
 		this.store = [new Day(new Date(), scope)];
@@ -138,23 +69,9 @@ class DayManager {
 
 class CombinedData {
 	update(days) {
-		this.solar = {
-			date: [],
-			power: [],
-			voltage: [],
-			frequency: [],
-		}
-
-		this.power_test = {
-			date: [],
-			power: [],
-		};
-
-		this.diagnostic = {
-			date: [],
-			buffer: [],
-			uptime: [],
-		}
+		this.solar = new SolarData();
+		this.diagnostic = new DiagnosticData();
+		this.power_test = new PowerData();
 
 		for (let day of days.store) {
 			if (day.draw_visible) {
@@ -170,6 +87,7 @@ class CombinedData {
 }
 
 
+var app = angular.module('App', []);
 app.controller('world', function ($scope) {
 	$scope.status = 'init';
 	window.SCOPE = $scope; // Debug

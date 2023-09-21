@@ -1,10 +1,10 @@
 namespace Power {
-	const size_t N_MEASURE = 2000;
+	const size_t N_MEASURE = 1000;
 
 	int measure_timeseries(String) {
 		const int pin = A0;
 
-		int buffer[N_MEASURE];
+		uint16_t buffer[N_MEASURE];
 		for (size_t i=0; i<N_MEASURE; i++) {
 			buffer[i] = analogRead(pin);
 			delay(1);
@@ -30,6 +30,19 @@ namespace Power {
 		}
 	}
 
+	int WAVELENGTH = 2000;
+	int set_wavelength(String val) {
+		WAVELENGTH = val.toInt();
+		return 0;
+	}
+
+	int analogRead(int) {
+		return  (millis() / WAVELENGTH) % 2000;
+	}
+
+	int analog = 0;
+	int ppower = 0;
+
 
 	class Power {
 		const char header;
@@ -43,7 +56,7 @@ namespace Power {
 		void stream(uint32_t power) {
 			Publisher::PUBLISHER.request(8);
 			Publisher::PUBLISHER << header;		// Power header
-			uint32_t buffer = Time.now();	// Time 28 bit
+			uint32_t buffer = Time.now() - 1690000000;	// Time 28 bit
 			Publisher::PUBLISHER << buffer; 		// Time [1-6]
 			Publisher::PUBLISHER << buffer; 		// Time [7-12]
 			Publisher::PUBLISHER << buffer; 		// Time [13-18]
@@ -63,15 +76,27 @@ namespace Power {
 				conversion_factor(conversion_factor),
 				threshold(threshold) {
 					state = analogRead(pin) > threshold;
-					tic = millis();
+					tic = System.millis();
 				}
 
 			void measure() {
 				if (state ^ (analogRead(pin) > threshold)) {
-					uint32_t toc = millis();
-					uint32_t power = 10000 * 3600 * conversion_factor / (tic - toc);
+					state ^= true;
+					uint64_t toc = System.millis();
+					uint32_t power = 10 * 1000 * 3600 * conversion_factor / (toc - tic);
+					tic = toc;
 					stream(power);
+					ppower = power;
 				}
 			}
-	} POWER0('x', A0, 400.0, 1000);
+	} POWER0('x', A0, 1/400.0, 1000);
+
+
+	void thread() {
+		while (true) {
+			delay(10);
+			POWER0.measure();
+			analog = analogRead(2);
+		}
+	}
 }

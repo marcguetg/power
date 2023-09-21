@@ -9,9 +9,18 @@ th {
 th.border, td.border {
 	margin: 1 em;
 	border-right: solid 1px black;
-	padding-right: 2em;
+	padding-right: 0.5em;
+	padding-left: 0.5em;
 }
 
 tr.tab:nth-of-type(odd) {
 	background-color: #ccc;
 }
+
+input {
+	width: 60px;
+}
+
+/* div.plot {
+	margin-left: 50px;
+} */
