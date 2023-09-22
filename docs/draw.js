@@ -1,12 +1,12 @@
 'use strict';
 
 
-const width = Math.min(window.innerWidth - 40, 400);
+const width = Math.min(window.innerWidth - 30, 500);
 const PLOT_OPT = {
 	id: "chart1",
 	class: "my-chart",
-	width: 400,
-	height: 400,
+	width: width,
+	height: width,
 	plugins: [
 		touchZoomPlugin()
 	],
@@ -44,21 +44,24 @@ const PLOT_OPT = {
 			[1,                 ":{ss}",          "\n{D}.{M}.{YY} {H}:{mm}",       null,    "\n{D}.{M} {H}:{mm}",      null,    "\n{H}:{mm}",      null,        1],
 			[0.001,             ":{ss}.{fff}",    "\n{D}.{M}.{YY} {H}:{mm}",       null,    "\n{D}.{M} {H}:{mm}",      null,    "\n{H}:{mm}",      null,        1],
 		  ],
-		}
+		},
 	  ],
 };
 
 
-var PLOTS = [
+const PLOTS = [
 	{
 		title: 'Power',
-		series: [{}, {label: 'Solar [W]', stroke: 'red'}, {label: 'Test [W]', stroke: 'green'}],
+		series: [{label: 'blob'},
+			{label: 'Solar [W]', stroke: 'darkslateblue'},
+			{label: 'Test [W]', stroke: 'dodgerblue'}
+		],
 	}, {
 		title: 'Voltage',
-		series: [{}, {label: 'Grid Voltage [V]', stroke: 'blue'}],
+		series: [{}, {label: 'Grid Voltage [V]', stroke: 'black'}],
 	}, {
 		title: 'Frequency',
-		series: [{}, {label: 'Grid Frequency [Hz]', stroke: 'purple'}],
+		series: [{}, {label: 'Grid Frequency [Hz]', stroke: 'black'}],
 	}, {
 		title: 'Buffer',
 		series: [{}, {label: 'Free buffer', stroke: 'black'}],
@@ -86,13 +89,16 @@ class DrawManager {
 	}
 
 	draw(data) {
+		let solar = data.draw_solar ? [data.solar.date, data.solar.power] : [[], []];
+		let power = data.draw_power ? [data.power_test.date, data.power_test.power] : [[], []];
+
 		let dd = uPlot.join([
-			[data.solar.date, data.solar.power],
+			solar,
 			[data.solar.date, data.solar.voltage],
 			[data.solar.date, data.solar.frequency],
 			[data.diagnostic.date, data.diagnostic.buffer],
 			[data.diagnostic.date, data.diagnostic.uptime],
-			[data.power_test.date, data.power_test.power],
+			power,
 		]);
 
 		this.Power.setData([dd[0], dd[1], dd[6]]);

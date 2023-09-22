@@ -58,7 +58,8 @@ class DayManager {
 	}
 
 	load(days) {
-		for (let i = this.store.length; i<days; i++) {
+		const n = this.store.length;
+		for (let i = n; i<(days+n); i++) {
 			let date = new Date();
 			date.setDate(date.getDate() - i);
 			this.store.push(new Day(date, this.scope));
@@ -68,6 +69,11 @@ class DayManager {
 
 
 class CombinedData {
+	constructor() {
+		this.draw_solar = true;
+		this.draw_power = true;
+	}
+
 	update(days) {
 		this.solar = new SolarData();
 		this.diagnostic = new DiagnosticData();
@@ -77,6 +83,9 @@ class CombinedData {
 			if (day.draw_visible) {
 				let d = day.data;
 				for (let group of Object.keys(this)) {
+					if (group.startsWith('draw')) {
+						continue;
+					}
 					for (let key of Object.keys(this[group])) {
 						this[group][key] = d[group][key].concat(this[group][key]);
 					}
@@ -84,11 +93,16 @@ class CombinedData {
 			}
 		}
 	}
+
+	set_visible(name) {
+		this[name] ^= true;
+	}
 }
 
 
 var app = angular.module('App', []);
 app.controller('world', function ($scope) {
+	$scope.width = window.innerWidth;
 	$scope.status = 'init';
 	window.SCOPE = $scope; // Debug
 	$scope.draw_manger = draw_manger;
@@ -103,6 +117,7 @@ app.controller('world', function ($scope) {
 	$scope.store_url = function(url) {
 		console.log(url)
 		localStorage.setItem('url', url);
+		location.reload();
 	}
 
 	$scope.download = function() {
@@ -113,6 +128,11 @@ app.controller('world', function ($scope) {
 		link.download = "power.json";
 		link.click();
 		URL.revokeObjectURL(link.href);
+	}
+
+	$scope.toggle_visible = function(day) {
+		day.draw_visible ^= true;
+		$scope.draw();
 	}
 
 	$scope.days = new DayManager($scope);

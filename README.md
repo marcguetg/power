@@ -46,3 +46,6 @@ Vcc       ┌───────────────────║A0 Vin 
 └─────R───┴────R──── GND
 ```
 
+
+# Functionality
+-> Time string

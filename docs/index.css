@@ -1,30 +1,74 @@
+body {
+	background-color: #DDD;
+}
+
 table {
 	border-collapse:collapse;
+	/* width: 378px; */
+	width: 100%;
+	max-width: 500px;
+	table-layout: fixed ;
 }
 
 th {
 	border-bottom: solid 2px black;
 }
 
-th.border, td.border {
-	margin: 1 em;
-	border-right: solid 1px black;
-	padding-right: 0.5em;
-	padding-left: 0.5em;
+th.buttons {
+	text-align: left;
 }
 
-tr.tab:nth-of-type(odd) {
-	background-color: #ccc;
+tr.top {
+	border-top: solid 1px black;
 }
 
-input {
-	width: 60px;
+td.center {
+	text-align: center;
 }
 
-.uplot {
+
+td.left {
+	text-align: left;
+}
+
+.u-over {
 	touch-action: none;
 }
 
-div {
-	margin-left: 20px;
+button {
+	border: none;
+	background: #BBB;
+	margin-right: 10px;
+	padding: 4px;
+}
+
+button.on {
+	padding: 0;
+	background: none;
+	color: green;
+}
+
+button.off {
+	padding: 0;
+	background: none;
+	color: off;
+}
+
+input[type="text"] {
+	background-color: #BBB;
+	border: none;
+	width: 90%;
+	padding: 4px;
+}
+
+button.solar {
+	padding: 0;
+	background: none;
+	color: darkslateblue;
+}
+
+button.power {
+	padding: 0;
+	background: none;
+	color: dodgerblue;
 }

@@ -10,56 +10,71 @@
 	<link rel="stylesheet" href="https://leeoniya.github.io/uPlot/dist/uPlot.min.css">
 	<script src="https://leeoniya.github.io/uPlot/dist/uPlot.iife.min.js" defer></script>
 
+	<link rel="stylesheet" href="index.css">
 	<script src="parse.js" defer></script>
 	<script src="touchZoom.js" defer></script>
 	<script src="draw.js" defer></script>
 	<script src="index.js" defer></script>
-	<link rel="stylesheet" href="index.css">
 </head>
 
 <body ng-app="App" ng-controller="world">
-	<button ng-click="days.load(3)">
-		3 Days
-	</button>
-	<button ng-click="days.load(7)">
-		Week
-	</button>
-	<button ng-click="days.load(30)">
-		Month
-	</button>
-	<input type="number" ng-model="add_value" ng-keyup="$event.keyCode == 13 && days.load(add_value)" placeholder="#Days"/>
-	<br>
-	<input type="text" ng-model="url" ng-keyup="$event.keyCode == 13 && store_url(url)" placeholder="webhook url"/>
-	<button ng-click="download()">Download</button>
+	<table >
+		<thead class="data_table">
+			<tr>
+				<th colspan="3" class="buttons">
+					<button ng-click="days.load(3)">+3d</button>
+					<button ng-click="days.load(7)">+7d</button>
+					<button ng-click="days.load(30)">+30d</button>
+				</th>
+				<th>
+					<input
+						type="text"
+						ng-model="url"
+						ng-keyup="$event.keyCode == 13 && store_url(url)"
+						placeholder="webhook url"
+					/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<button
+						ng-click="combined_data.set_visible('draw_solar') || draw()"
+						ng-class="combined_data.draw_solar ? 'solar': 'off'">
+						Solar
+					</button>
+				</th>
+				<th>
+					<button
+						ng-click="combined_data.set_visible('draw_power') || draw()"
+						ng-class="combined_data.draw_power ? 'power': 'off'">
+						Power
+					</button>
+				</th>
+				<th>Diag</th>
+				<th>Corr</th>
+			</tr>
+		</thead>
 
-	<table>
-		<tr>
-			<th class="border">Date</th>
-			<th class="border">Draw</th>
-			<th class="border">Solar</th>
-			<th class="border">Power test</th>
-			<th class="border">Diagnostic</th>
-			<th>Corrupted</th>
-		</tr>
-
-		<tr ng-repeat="day in days.store" class="tab">
-			<td class="border">
-				{{day.name}}
-			</td>
-			<td ng-if="day.status" colspan="5">{{day.status}}</td>
-			<td ng-if="day.status == ''" class="border">
-				<input
-					type="checkbox"
-					ng-model="day.draw_visible"
-					ng-change="draw()"
-				>
-			</td>
-			<td ng-if="day.status == ''" class="border">{{day.data.solar.date.length}}</td>
-			<td ng-if="day.status == ''" class="border">{{day.data.power_test.date.length}}</td>
-			<td ng-if="day.status == ''" class="border">{{day.data.diagnostic.date.length}}</td>
-			<td ng-if="day.status == ''">{{day.corrupted}}</td>
-		</tr>
+		<tbody ng-repeat="day in days.store" class="data_table">
+			<tr class="top">
+				<td colspan="4" class="left">
+					<button
+						ng-click="toggle_visible(day)"
+						ng-class="day.draw_visible ? 'on' : 'off'" >
+						{{day.name}}
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td ng-if="day.status" colspan="4">{{day.status}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.solar.date.length}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.power_test.date.length}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.diagnostic.date.length}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.corrupted}}</td>
+			</tr>
+		</tbody>
 	</table>
+
 
 	<div id="Power" class="plot"></div>
 	<div id="Voltage" class="plot"></div>
