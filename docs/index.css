@@ -1,24 +1,53 @@
 body {
-	background-color: #DDD;
+	background-color: #EEE;
 }
 
-table {
+button {
+	border: none;
+	background: none;
+	margin-right: 10px;
+	padding: 4px;
+	font-weight: bold;
+	width: 100%;
+	text-align: left;
+}
+
+input[type="text"] {
+	background-color: #CCC;
+	border: none;
+	width: 90%;
+	padding: 4px;
+}
+
+table.file {
 	border-collapse:collapse;
 	/* width: 378px; */
 	width: 100%;
 	max-width: 500px;
-	table-layout: fixed ;
+	table-layout: fixed;
 }
 
-th {
+table.file thead th {
 	border-bottom: solid 2px black;
 }
 
-th.buttons {
-	text-align: left;
+table.file thead ul {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-tr.top {
+table.file thead ul li {
+	display: inline-block;
+	float: left;
+}
+
+table.file thead ul li:last-of-type {
+	float: right;
+}
+
+table.file tbody tr:nth-child(odd) {
 	border-top: solid 1px black;
 }
 
@@ -26,49 +55,23 @@ td.center {
 	text-align: center;
 }
 
-
-td.left {
-	text-align: left;
-}
-
-.u-over {
+div.u-over {
 	touch-action: none;
 }
 
-button {
-	border: none;
-	background: #BBB;
-	margin-right: 10px;
-	padding: 4px;
-}
 
 button.on {
-	padding: 0;
-	background: none;
 	color: green;
 }
 
 button.off {
-	padding: 0;
-	background: none;
-	color: off;
-}
-
-input[type="text"] {
-	background-color: #BBB;
-	border: none;
-	width: 90%;
-	padding: 4px;
+	color: black;
 }
 
 button.solar {
-	padding: 0;
-	background: none;
 	color: darkslateblue;
 }
 
 button.power {
-	padding: 0;
-	background: none;
 	color: dodgerblue;
 }

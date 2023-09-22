@@ -18,13 +18,18 @@
 </head>
 
 <body ng-app="App" ng-controller="world">
-	<table >
-		<thead class="data_table">
+	<table class="file">
+		<thead>
 			<tr>
-				<th colspan="3" class="buttons">
-					<button ng-click="days.load(3)">+3d</button>
-					<button ng-click="days.load(7)">+7d</button>
-					<button ng-click="days.load(30)">+30d</button>
+				<th colspan="3">
+					<ul>
+						<li><button ng-click="days.load(3)">+3d</button></li>
+						<li><button ng-click="days.load(7)">+7d</button></li>
+						<li><button ng-click="days.load(30)">+30d</button></li>
+						<li><button ng-click="download()" class="download">
+							💾
+						</button></li>
+					</ul>
 				</th>
 				<th>
 					<input
@@ -56,8 +61,8 @@
 		</thead>
 
 		<tbody ng-repeat="day in days.store" class="data_table">
-			<tr class="top">
-				<td colspan="4" class="left">
+			<tr>
+				<td colspan="4">
 					<button
 						ng-click="toggle_visible(day)"
 						ng-class="day.draw_visible ? 'on' : 'off'" >

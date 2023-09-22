@@ -7,6 +7,9 @@ const PLOT_OPT = {
 	class: "my-chart",
 	width: width,
 	height: width,
+	legend: {
+		isolate: true
+	},
 	plugins: [
 		touchZoomPlugin()
 	],
@@ -52,9 +55,9 @@ const PLOT_OPT = {
 const PLOTS = [
 	{
 		title: 'Power',
-		series: [{label: 'blob'},
+		series: [{},
 			{label: 'Solar [W]', stroke: 'darkslateblue'},
-			{label: 'Test [W]', stroke: 'dodgerblue'}
+			{label: 'Test [W]', stroke: 'dodgerblue'},
 		],
 	}, {
 		title: 'Voltage',

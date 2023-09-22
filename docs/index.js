@@ -53,7 +53,6 @@ class Day {
 class DayManager {
 	constructor(scope) {
 		this.store = [new Day(new Date(), scope)];
-		this.store[0].load();
 		this.scope = scope;
 	}
 

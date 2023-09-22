@@ -45,7 +45,3 @@ Vcc       ┌───────────────────║A0 Vin 
 │     5k  │  5k-500k (PM)     ╚═══════╝ GND
 └─────R───┴────R──── GND
 ```
-
-
-# Functionality
--> Time string
