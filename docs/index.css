@@ -12,6 +12,10 @@ button {
 	text-align: left;
 }
 
+tr.topics button {
+	text-align: center;
+}
+
 input[type="text"] {
 	background-color: #CCC;
 	border: none;
@@ -47,7 +51,7 @@ table.file thead ul li:last-of-type {
 	float: right;
 }
 
-table.file tbody tr:nth-child(odd) {
+table.file tbody tr.main_topic {
 	border-top: solid 1px black;
 }
 

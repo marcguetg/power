@@ -102,7 +102,11 @@ class DrawManager {
 			[data.diagnostic.date, data.diagnostic.buffer],
 			[data.diagnostic.date, data.diagnostic.uptime],
 			power,
-		]);
+		], null);
+
+		// for (let i=1; i<6; i++) {
+		// 	dd[i] = dd[i].map(a => a === undefined?null:a);
+		// }
 
 		this.Power.setData([dd[0], dd[1], dd[6]]);
 		this.Voltage.setData([dd[0], dd[2]]);

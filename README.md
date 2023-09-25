@@ -26,7 +26,7 @@ Base64 encoding shifted by ' '. Each data entry starts with a minor letter (a-z)
 | Free Buff | 5   | 0          |       |           |
 | Uptime    | 15  | 0          | 10min | 228d      |
 
-## Power stream (8 bytes long with header "x")
+## Power stream (9 bytes long with header "x")
 | Name      | Bit | offset     | unit  | max       |
 | --------- | --- | ---------- | ----- | --------- |
 | Time      | 28  | 1690000000 | s     | 23.1.2032 |

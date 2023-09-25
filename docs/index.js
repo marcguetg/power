@@ -35,7 +35,7 @@ class Day {
 	}
 
 	parse(raw) {
-		[this.status, this.data, this.corrupted] = parse(raw.data);
+		[this.status, this.data] = parse(raw.data);
 
 		this.draw_visible = true;
 		this.scope.draw();
@@ -86,6 +86,10 @@ class CombinedData {
 						continue;
 					}
 					for (let key of Object.keys(this[group])) {
+						if (key[0] == '_') {
+							continue;
+						}
+
 						this[group][key] = d[group][key].concat(this[group][key]);
 					}
 				}
@@ -103,6 +107,7 @@ var app = angular.module('App', []);
 app.controller('world', function ($scope) {
 	$scope.width = window.innerWidth;
 	$scope.status = 'init';
+	$scope.debug = true;
 	window.SCOPE = $scope; // Debug
 	$scope.draw_manger = draw_manger;
 	$scope.combined_data = new CombinedData();

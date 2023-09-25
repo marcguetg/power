@@ -21,14 +21,12 @@
 	<table class="file">
 		<thead>
 			<tr>
-				<th colspan="3">
+				<th colspan="2">
 					<ul>
 						<li><button ng-click="days.load(3)">+3d</button></li>
 						<li><button ng-click="days.load(7)">+7d</button></li>
 						<li><button ng-click="days.load(30)">+30d</button></li>
-						<li><button ng-click="download()" class="download">
-							💾
-						</button></li>
+						<li><button ng-click="download()" class="download">💾</button></li>
 					</ul>
 				</th>
 				<th>
@@ -40,7 +38,7 @@
 					/>
 				</th>
 			</tr>
-			<tr>
+			<tr class="topics">
 				<th>
 					<button
 						ng-click="combined_data.set_visible('draw_solar') || draw()"
@@ -56,13 +54,12 @@
 					</button>
 				</th>
 				<th>Diag</th>
-				<th>Corr</th>
 			</tr>
 		</thead>
 
 		<tbody ng-repeat="day in days.store" class="data_table">
-			<tr>
-				<td colspan="4">
+			<tr class="main_topic">
+				<td colspan="3">
 					<button
 						ng-click="toggle_visible(day)"
 						ng-class="day.draw_visible ? 'on' : 'off'" >
@@ -71,11 +68,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td ng-if="day.status" colspan="4">{{day.status}}</td>
-				<td ng-if="day.status == ''" class="center">{{day.data.solar.date.length}}</td>
-				<td ng-if="day.status == ''" class="center">{{day.data.power_test.date.length}}</td>
-				<td ng-if="day.status == ''" class="center">{{day.data.diagnostic.date.length}}</td>
-				<td ng-if="day.status == ''" class="center">{{day.corrupted}}</td>
+				<td ng-if="day.status" colspan="3">{{day.status}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.solar._status}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.power_test._status}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.diagnostic._status}}</td>
+			</tr>
+			<tr ng-if="debug">
+				<td ng-if="day.status == ''" class="center">{{day.data.solar._debug}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.power_test._debug}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.diagnostic._debug}}</td>
 			</tr>
 		</tbody>
 	</table>
