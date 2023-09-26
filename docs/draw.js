@@ -57,7 +57,7 @@ const PLOTS = [
 		title: 'Power',
 		series: [{},
 			{label: 'Solar [W]', stroke: 'darkslateblue'},
-			{label: 'Test [W]', stroke: 'dodgerblue'},
+			{label: 'Oben [W]', stroke: 'dodgerblue'},
 		],
 	}, {
 		title: 'Voltage',
@@ -93,7 +93,7 @@ class DrawManager {
 
 	draw(data) {
 		let solar = data.draw_solar ? [data.solar.date, data.solar.power] : [[], []];
-		let power = data.draw_power ? [data.power_test.date, data.power_test.power] : [[], []];
+		let power = data.draw_power ? [data.power_oben.date, data.power_oben.power] : [[], []];
 
 		let dd = uPlot.join([
 			solar,

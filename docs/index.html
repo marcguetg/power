@@ -50,7 +50,7 @@
 					<button
 						ng-click="combined_data.set_visible('draw_power') || draw()"
 						ng-class="combined_data.draw_power ? 'power': 'off'">
-						Power
+						Oben
 					</button>
 				</th>
 				<th>Diag</th>
@@ -70,12 +70,12 @@
 			<tr>
 				<td ng-if="day.status" colspan="3">{{day.status}}</td>
 				<td ng-if="day.status == ''" class="center">{{day.data.solar._status}}</td>
-				<td ng-if="day.status == ''" class="center">{{day.data.power_test._status}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.power_oben._status}}</td>
 				<td ng-if="day.status == ''" class="center">{{day.data.diagnostic._status}}</td>
 			</tr>
 			<tr ng-if="debug">
 				<td ng-if="day.status == ''" class="center">{{day.data.solar._debug}}</td>
-				<td ng-if="day.status == ''" class="center">{{day.data.power_test._debug}}</td>
+				<td ng-if="day.status == ''" class="center">{{day.data.power_oben._debug}}</td>
 				<td ng-if="day.status == ''" class="center">{{day.data.diagnostic._debug}}</td>
 			</tr>
 		</tbody>

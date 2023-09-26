@@ -76,7 +76,7 @@ class CombinedData {
 	update(days) {
 		this.solar = new SolarData();
 		this.diagnostic = new DiagnosticData();
-		this.power_test = new PowerData();
+		this.power_oben = new PowerData();
 
 		for (let day of days.store) {
 			if (day.draw_visible) {

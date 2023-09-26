@@ -89,7 +89,8 @@ class PowerData {
 	}
 
 	create_status() {
-		let energy = Math.round(this.date.length / this._ticks).toLocaleString('de-ch');
+		console.log(this.date.length)
+		let energy = Math.round(this.date.length * 1000 / this._ticks).toLocaleString('de-ch');
 		this._status = `${energy} Wh`;
 		this._debug = this.date.length.toLocaleString('de-ch');
 	}
@@ -138,7 +139,7 @@ class DiagnosticData {
 function parse(raw) {
 	let data = {
 		solar: new SolarData(),
-		power_test: new PowerData(800),
+		power_oben: new PowerData(800),
 		diagnostic: new DiagnosticData(),
 	};
 
@@ -158,8 +159,8 @@ function parse(raw) {
 			case 98:
 				i = data.diagnostic.parse(raw, i);
 				break;
-			case 120:
-				i = data.power_test.parse(raw, i);
+			case 99:
+				i = data.power_oben.parse(raw, i);
 				break;
 			default:
 				corrupted++;
@@ -168,7 +169,7 @@ function parse(raw) {
 
 		corrupted +=
 			data.solar._corrupted +
-			data.power_test._corrupted +
+			data.power_oben._corrupted +
 			data.diagnostic._corrupted;
 	}
 
