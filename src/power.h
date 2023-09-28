@@ -60,7 +60,7 @@ namespace Power {
 			Publisher::PUBLISHER << buffer; 		// Time [13-18]
 			Publisher::PUBLISHER << buffer; 		// Time [19-24]
 
-			buffer += power << 4;		// Power 20 bit
+			buffer += (power & 0xfffff) << 4;		// Power 20 bit
 			Publisher::PUBLISHER << buffer; 		// Time [25-28] + Power [1-2]
 			Publisher::PUBLISHER << buffer; 		// Power [3-8]
 			Publisher::PUBLISHER << buffer; 		// Power [9-14]

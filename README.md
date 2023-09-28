@@ -11,13 +11,21 @@ The former three are measured by a Growatt PV inverter which communicats by RS-4
 # Data streams
 Base64 encoding shifted by ' '. Each data entry starts with a minor letter (a-z), were letters starting from x are reserved for testing purpuses.
 
-## Solar stream (12 bytes long with header "a")
+## Solar stream (12 bytes long with header "a") [Retired]
 | Name      | Bit | offset     | unit  | max       |
 | --------- | --- | ---------- | ----- | --------- |
 | Time      | 28  | 1690000000 | s     | 23.1.2032 |
 | Power     | 15  | 0          | 100mW | 3.2 kW    |
 | Frequency | 11  | 4000       | 10mHz | 60 Hz     |
 | Voltage   | 12  | 1000       | 100mV | 500V      |
+
+## Solar stream2 (12 bytes long with header "e")
+| Name      | Bit | offset     | unit  | max       |
+| --------- | --- | ---------- | ----- | --------- |
+| Time      | 28  | 1690000000 | s     | 23.1.2032 |
+| Power     | 16  | 0          | 100mW | 6.5 kW    |
+| Frequency | 11  | 4000       | 10mHz | 60 Hz     |
+| Voltage   | 11  | 1500       | 100mV | 350V      |
 
 ## Diagnostic message (8 bytes long with header "b")
 | Name      | Bit | offset     | unit  | max       |
@@ -26,11 +34,14 @@ Base64 encoding shifted by ' '. Each data entry starts with a minor letter (a-z)
 | Free Buff | 5   | 0          |       |           |
 | Uptime    | 15  | 0          | 10min | 228d      |
 
-## Power stream (9 bytes long with header "c")
+## Power stream oben (9 bytes long with header "c")
 | Name      | Bit | offset     | unit  | max       |
 | --------- | --- | ---------- | ----- | --------- |
 | Time      | 28  | 1690000000 | s     | 23.1.2032 |
 | Power     | 20  | 0          | 100mW | 104 kW    |
+
+
+
 
 
 # Wiring

@@ -46,10 +46,10 @@ namespace Publisher {
 			*this << buffer; 			// Time [7-12]
 			*this << buffer; 			// Time [13-18]
 
-			buffer += QUEUE.free_size() << 4;	// Len 5 bit
+			buffer += (QUEUE.free_size() & 0x1f) << 4;	// Buff 5 bit
 			*this << buffer; 			// Time [19-22] + Buff[1-2]
 
-			buffer += (System.uptime() / 600) << 3;
+			buffer += ((System.uptime() / 600) & 0x7fff) << 3; // uptime 15 bit
 			*this << buffer; 			// Buff[3-5] + Up[1-3]
 			*this << buffer; 			// Up [4-9]
 			*this << buffer; 			// Up [10-15]
