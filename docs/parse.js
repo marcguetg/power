@@ -171,6 +171,7 @@ function parse(raw) {
 	let data = {
 		solar: new SolarData(),
 		power_oben: new PowerData(800),
+		power_unten: new PowerData(10000),
 		diagnostic: new DiagnosticData(),
 	};
 
@@ -198,6 +199,9 @@ function parse(raw) {
 				break;
 			case 101:
 				i = data.solar.parse2(raw, i);
+				break;
+			case 102:
+				i = data.power_unten.parse(raw, i);
 				break;
 			default:
 				corrupted++;

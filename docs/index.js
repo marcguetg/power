@@ -71,12 +71,14 @@ class CombinedData {
 	constructor() {
 		this.draw_solar = true;
 		this.draw_power = true;
+		this.draw_unten = true;
 	}
 
 	update(days) {
 		this.solar = new SolarData();
 		this.diagnostic = new DiagnosticData();
 		this.power_oben = new PowerData();
+		this.power_unten = new PowerData();
 
 		for (let day of days.store) {
 			if (day.draw_visible) {

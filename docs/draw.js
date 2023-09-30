@@ -58,6 +58,7 @@ const PLOTS = [
 		series: [{},
 			{label: 'Solar [W]', stroke: 'darkslateblue'},
 			{label: 'Oben [W]', stroke: 'dodgerblue'},
+			{label: 'Unten [W]', stroke: 'mediumpurple'},
 		],
 	}, {
 		title: 'Voltage',
@@ -94,6 +95,7 @@ class DrawManager {
 	draw(data) {
 		let solar = data.draw_solar ? [data.solar.date, data.solar.power] : [[], []];
 		let power = data.draw_power ? [data.power_oben.date, data.power_oben.power] : [[], []];
+		let power2 = data.draw_unten ? [data.power_unten.date, data.power_unten.power] : [[], []];
 
 		let dd = uPlot.join([
 			solar,
@@ -102,13 +104,14 @@ class DrawManager {
 			[data.diagnostic.date, data.diagnostic.buffer],
 			[data.diagnostic.date, data.diagnostic.uptime],
 			power,
+			power2,
 		], null);
 
 		// for (let i=1; i<6; i++) {
 		// 	dd[i] = dd[i].map(a => a === undefined?null:a);
 		// }
 
-		this.Power.setData([dd[0], dd[1], dd[6]]);
+		this.Power.setData([dd[0], dd[1], dd[6], dd[7]]);
 		this.Voltage.setData([dd[0], dd[2]]);
 		this.Frequency.setData([dd[0], dd[3]]);
 		this.Buffer.setData([dd[0], dd[4]]);

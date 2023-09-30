@@ -46,10 +46,11 @@ namespace Power {
 		const int pin;
 		const uint64_t conversion_factor;
 		const int threshold;
+		const double smooth;
 
 		bool state;
 		int64_t tic;
-		int smoothed_power;
+		double smoothed_power;
 
 		void stream(uint32_t power) {
 			Publisher::PUBLISHER.request(8);
@@ -68,19 +69,21 @@ namespace Power {
 		}
 
 		public:
-			Power(const char header, const int pin, const uint64_t conversion_factor, const int threshold):
+			Power(const char header, const int pin, const uint64_t conversion_factor, const int threshold, const double smooth):
 				header(header),
 				pin(pin),
 				conversion_factor(conversion_factor),
-				threshold(threshold) {
+				threshold(threshold),
+				smooth(smooth) {
 					state = analogRead(pin) > threshold;
 					tic = System.millis();
 					smoothed_power = 0;
 				}
 
 			void measure() {
-				smoothed_power = smoothed_power * 0.8 + analogRead(pin) * 0.2;
-				if (state ^ (smoothed_power > threshold)) {
+				double sp = smoothed_power * smooth + analogRead(pin) * (1 - smooth);
+
+				if (state ^ ((sp - smoothed_power) > threshold)) {
 					state ^= true;
 					if (state) {
 						uint64_t toc = System.millis();
@@ -89,14 +92,19 @@ namespace Power {
 						stream(power);
 					}
 				}
+
+				smoothed_power = sp;
 			}
-	} POWER0('c', A0, 800, 2500);
+	} POWER0('c', A0, 800, 70, 0.8), POWER1('f', A2, 10000, 100, 0.8);
 
 
 	void thread() {
+		delay(5000);
+
 		while (true) {
-			delay(3);
+			delay(1);
 			POWER0.measure();
+			POWER1.measure();
 		}
 	}
 }
