@@ -1,5 +1,5 @@
 body {
-	background-color: #EEE;
+	background-color: #FBFBFB;
 }
 
 button {
@@ -73,13 +73,13 @@ button.off {
 }
 
 button.solar {
-	color: darkslateblue;
+	color: darkblue;
 }
 
 button.power {
-	color: dodgerblue;
+	color: darkgreen;
 }
 
 button.unten {
-	color: purple;
+	color: Crimson;
 }

@@ -56,9 +56,9 @@ const PLOTS = [
 	{
 		title: 'Power',
 		series: [{},
-			{label: 'Solar [W]', stroke: 'darkslateblue'},
-			{label: 'Oben [W]', stroke: 'dodgerblue'},
-			{label: 'Unten [W]', stroke: 'mediumpurple'},
+			{label: 'Solar [W]', stroke: 'darkblue'},
+			{label: 'Oben [W]', stroke: 'darkgreen'},
+			{label: 'Unten [W]', stroke: 'Crimson'},
 		],
 	}, {
 		title: 'Voltage',
