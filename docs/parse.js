@@ -203,6 +203,9 @@ function parse(raw) {
 			case 102:
 				i = data.power_unten.parse(raw, i);
 				break;
+			case 103:
+				i = parse_entry_g(raw, i, data);
+				break;
 			default:
 				corrupted++;
 				console.log('corr ' + raw[i]);
@@ -221,6 +224,17 @@ function parse(raw) {
 	Object.values(data).forEach(p => p.create_status());
 
 	return ['', data];
+}
+
+
+function parse_entry_g(raw, i, data) {
+	i = data.diagnostic.parse_g(raw, i);
+	while (i < raw.length) {
+		switch (raw[i]) {
+
+		}
+	}
+	data.diagnostic.parse()
 }
 
 

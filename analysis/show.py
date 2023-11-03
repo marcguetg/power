@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
 import numpy as np
 from datetime import datetime
-import json
+
+import load_data
 
 
 
@@ -22,14 +23,16 @@ def plot_general(data):
 
 
 if __name__ == '__main__':
-	data = json.load(open('power.json'))
-	for [key, value] in data.items():
-		data[key] = np.array(value)
+	data = load_data.load_folder('../data/')
 
-	data['date'] = np.array(data['date'], dtype='datetime64[s]')
-	print(data)
 
-	plot_general(data)
+	# for [key, value] in data.items():
+	# 	data[key] = np.array(value)
+
+	# data['date'] = np.array(data['date'], dtype='datetime64[s]')
+	# print(data)
+
+	# plot_general(data)
 
 	# print(data)
 	# data.info()
